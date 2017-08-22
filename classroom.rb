@@ -20,12 +20,14 @@ end
 def assignment_average_score(grade_hash, assignment_num)
   grade_hash
     .map { |key, value| value[assignment_num -1] }
-    .reduce(:+) /grade_hash.length
+    .reduce(:+) / grade_hash.length
 end
 # Return a hash of students and their average score.
 # TIP: To convert an array like [[:indiana, 90], [:nevada, 80]] to a hash,
 # use .to_h. Also look at Hash#transform_values.
 def averages(grade_hash)
+  grade_hash.transform_values{ |num| num.reduce(:+) / num.length }
+end
 
 # Return a letter grade for a numerical score.
 # 90+ => A
@@ -34,7 +36,17 @@ def averages(grade_hash)
 # 60-69 => D
 # < 60 => F
 def letter_grade(score)
-
+  if score >= 90
+    return "A"
+  elsif score >= 80  && score <= 89
+    return "B"
+  elsif score >= 70 && score <= 79
+    return "C"
+  elsif score >= 60 && score <= 69
+    return "D"
+  else
+    return "F"
+  end
 end
 
 # Return a hash of students and their final letter grade, as determined
